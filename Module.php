@@ -21,7 +21,7 @@ class Module extends AbstractModule
      * @param ViewModel $view
      * @return string
      */
-    public function getConfigForm(ViewModel $view)
+    public function getConfigForm(PhpRenderer $view)
     {
         return '<input name="foo">';
     }
