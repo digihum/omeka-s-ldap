@@ -9,10 +9,10 @@ return [
     // Add this section:
     'service_manager' => [
         'aliases' => [            
-            ZendAuthenticationService::class => Service\AuthenticationServiceFactory::class
+            ZendAuthenticationService::class => LDAP\Service\AuthenticationServiceFactory::class
         ],
         'factories' => [
-            OmekaAuthenticationService::class => Service\AuthenticationServiceFactory::class
+            OmekaAuthenticationService::class => LDAP\Service\AuthenticationServiceFactory::class
         ],
     ]
 ];
