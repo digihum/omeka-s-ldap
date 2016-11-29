@@ -3,7 +3,7 @@ namespace LDAP\Controller;
 
 /** Not autoloading is lame... */
 use Doctrine\ORM\EntityManager;
-use Omeka\Controller\Admin\UsersController as OmekaUserController;
+use Omeka\Controller\Admin\UserController as OmekaUserController;
 /**
  * A class to override the default user actions with the LDAP system.
  *
