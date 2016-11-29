@@ -1,0 +1,99 @@
+<?php
+$this->htmlElement('body')->appendAttribute('class', 'users browse');
+$escape = $this->plugin('escapeHtml');
+$sortHeadings = [
+    [
+        'label' => $this->translate('Email'),
+        'value' => 'email'
+    ],
+    [
+        'label' => $this->translate('Role'),
+        'value' => 'role'
+    ],
+    [
+        'label' => $this->translate('Date Created'),
+        'value' => 'created'
+    ]
+]
+?>
+
+<?php echo $this->pageTitle($this->translate('Users')); ?>
+
+<div id="page-actions">
+    <?php if ($this->userIsAllowed('Omeka\Api\Adapter\UserAdapter', 'create')): ?>
+        <?php echo $this->hyperlink($this->translate('Add new user'), $this->url(null, ['action' => 'add'], true), ['class' => 'button']); ?>
+    <?php endif; ?>
+</div>
+
+<?php if (count($users)): ?>
+<div class="browse-controls">
+    <?php echo $this->pagination(); ?>
+    <?php echo $this->sortSelector($sortHeadings); ?>
+</div>
+<?php $this->trigger('view.browse.before'); ?>
+<table class="tablesaw" data-tablesaw-mode="stack">
+    <thead>
+        <tr>
+            <th><?php echo $this->translate('Email'); ?></th>
+            <th><?php echo $this->translate('Role'); ?></th>
+            <th><?php echo $this->translate('Date Created'); ?></th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($users as $user): ?>
+        <tr>
+            <td>
+                <span class="resource-name">
+                    <?php echo $user->link($user->email() . ' (' . $user->name() . ')'); ?>
+                </span>
+                <ul class="actions">
+                    <?php if ($user->userIsAllowed('update')): ?>
+                    <li><?php echo $user->link('', 'edit', [
+                        'class' => 'o-icon-edit',
+                        'aria-label' => $escape($this->translate('Edit')),
+                        'title' => $escape($this->translate('Edit')),
+                    ]) ?></li>
+                    <?php endif; ?>
+                    <?php if ($user->userIsAllowed('delete')): ?>
+                    <li><a href="#"
+                        data-sidebar-content-url="<?php echo $escape($user->url('delete-confirm')); ?>"
+                        class="o-icon-delete sidebar-content"
+                        aria-label="<?php echo $escape($this->translate('Delete')); ?>"
+                        title="<?php echo $escape($this->translate('Delete')); ?>"></a></li>
+                    <?php endif; ?>
+                    <li><a href="#"
+                        data-sidebar-content-url="<?php echo $escape($user->url('show-details')); ?>"
+                        class="o-icon-more sidebar-content"
+                        aria-label="<?php echo $escape($this->translate('Details')); ?>"
+                        title="<?php echo $escape($this->translate('Details')); ?>"></a></li>
+                </ul>
+            </td>
+            <td><?php echo $escape($this->translate($user->displayRole())); ?></td>
+            <td><?php echo $escape($this->i18n()->dateFormat($user->created())); ?></td>
+        </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+<?php $this->trigger('view.browse.after'); ?>
+
+<div class="browse-controls">
+    <?php echo $this->pagination(); ?>
+</div>
+
+<div class="sidebar">
+    <a href="#"
+        class="sidebar-close o-icon-close"
+        aria-label="<?php echo $escape($this->translate('Close')); ?>"
+        title="<?php echo $escape($this->translate('Close')); ?>"></a>
+    <div class="sidebar-content"></div>
+</div>
+
+<?php else: ?>
+
+<div class="no-resources">
+    <p><?php echo $this->translate('Omeka could not find any users.'); ?></p>
+</div>
+
+<?php endif; ?>
+
+

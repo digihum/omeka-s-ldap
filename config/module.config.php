@@ -1,9 +1,9 @@
 <?php
 
 return array(
-    'controllers' => array(
+    'service_manager' => array(
         'factories' => array(
-            'Omeka\Controller\Admin\User' => 'LDAP\Admin\UserControllerFactory',
+            'Omeka\AuthenticationService' => 'LDAP\Service\AuthenticationServiceFactory'
         )
     )
 );
