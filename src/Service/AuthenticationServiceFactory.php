@@ -11,6 +11,12 @@ use Zend\Authentication\Storage\Session;
 use Zend\ServiceManager\Factory\FactoryInterface;
 use Interop\Container\ContainerInterface;
 
+use Zend\Config\Config;
+use Zend\Config\Reader\Ini as ConfigReader;
+use Zend\Authentication\Adapter\Ldap as AuthAdapter;
+
+use LDAP\Lib\LdapAuthAdapter;
+
 /**
  * Authentication service factory.
  */
@@ -40,9 +46,19 @@ class AuthenticationServiceFactory implements FactoryInterface
                 $storage = new DoctrineWrapper(new NonPersistent, $userRepository);
                 $adapter = new KeyAdapter($keyRepository, $entityManager);
             } else {
-                // Authenticate using user/password for all other requests.
+                // Authenticate using ldap for all other requests
                 $storage = new DoctrineWrapper(new Session, $userRepository);
-                $adapter = new PasswordAdapter($userRepository);
+                //$adapter = new PasswordAdapter($userRepository);
+                
+                $configReader = new ConfigReader();
+                $configData = $configReader->fromFile(__DIR__ . '/../../config/ldap-config.ini');
+                $config = new Config($configData, true);
+
+                $log_path = $config->production->ldap->log_path;
+                $options = $config->production->ldap->toArray();
+                unset($options['log_path']);
+
+                $adapter = new LdapAuthAdapter($options);
             }
         }
 

@@ -1,6 +1,8 @@
 <?php
 namespace LDAP;
 
+require __DIR__ . '/vendor/autoload.php';
+
 use Omeka\Module\AbstractModule;
 use Omeka\Entity\Job;
 use Zend\ServiceManager\ServiceLocatorInterface;

@@ -1,5 +1,7 @@
 <?php
 
+namespace LDAP\Lib;
+
 use Zend\Authentication\Adapter\Ldap as AuthAdapter;
 use Zend\Authentication\Result as AuthResult;
 
@@ -33,7 +35,7 @@ class LdapAuthAdapter extends AuthAdapter
 			}
 			else
 			{
-				$result = new Zend_Auth_Result($result->getCode(), $user->id, $result->getMessages());
+				$result = new AuthResult($result->getCode(), $user->id, $result->getMessages());
 			}
 		}
 		return $result;
@@ -53,6 +55,6 @@ class LdapAuthAdapter extends AuthAdapter
 	{
 		$messages = array();
 		$message[] = 'Login information incorrect. Please try again.';
-		return new Zend_Auth_Result(Zend_Auth_Result::FAILURE_IDENTITY_NOT_FOUND, $this->getUsername(), $message);
+		return new AuthResult(AuthResult::FAILURE_IDENTITY_NOT_FOUND, $this->getUsername(), $message);
 	}
 }
