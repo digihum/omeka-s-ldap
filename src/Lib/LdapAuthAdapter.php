@@ -20,6 +20,7 @@ class LdapAuthAdapter extends AuthAdapter
 	 */
 	public function authenticate()
 	{
+        $this->setIdentity(strtok($this->getIdentity(), '@'));
 		//var_dump($this->getUsername()); die;
 		$result = parent::authenticate();
 		/**

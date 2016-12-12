@@ -3,7 +3,7 @@ namespace LDAP\Service;
 
 use Omeka\Authentication\Adapter\KeyAdapter;
 use Omeka\Authentication\Adapter\PasswordAdapter;
-use Omeka\Authentication\Storage\DoctrineWrapper;
+
 use Zend\Authentication\AuthenticationService;
 use Zend\Authentication\Adapter\Callback;
 use Zend\Authentication\Storage\NonPersistent;
@@ -16,6 +16,7 @@ use Zend\Config\Reader\Ini as ConfigReader;
 use Zend\Authentication\Adapter\Ldap as AuthAdapter;
 
 use LDAP\Lib\LdapAuthAdapter;
+use LDAP\Authentication\Storage\DoctrineWrapper;
 
 /**
  * Authentication service factory.
