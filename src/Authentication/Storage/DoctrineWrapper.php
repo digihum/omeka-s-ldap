@@ -73,7 +73,8 @@ class DoctrineWrapper implements StorageInterface
      */
     public function write($identity)
     {
-        $this->storage->write($identity->getId());
+        $omekaUser = $this->repository->findOneBy([ 'email' => $identity]);
+        $this->storage->write($omekaUser->getId());
     }
 
     /**
