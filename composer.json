@@ -1,6 +1,6 @@
 {
     "name": "digihum/LDAP",
-    "description": "Adds LDAP to Omeka",
+    "description": "Adds LDAP authentication to Omeka-S",
     "type": "library",
     "require": {
         "php": ">=5.6.0",
@@ -19,15 +19,8 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "OxCom",
-            "email": "lancer.oxcom@gmail.com"
+            "name": "Tim Hollies",
+            "email": "tim.hollies@warwick.ac.uk"
         }
-    ],
-    "scripts": {
-        "test": [
-            "composer install",
-            "./vendor/bin/phpcs --standard=psr2 src/ tests/ZendTwig/ tests/Fixture/",
-            "./vendor/bin/phpunit -c tests/"
-        ]
-    }
+    ]
 }

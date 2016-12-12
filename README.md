@@ -1,47 +1,27 @@
-# CSVImport
+# Omeka-S LDAP Module
 
-This module will allow users to import Entities from a simple CSV (comma separated value) file, and then map the CSV column data to Entity. Each row in the file represents metadata for a single Entity.
+This plugin allows users to be authenticated against an external LDAP authority. 
 
-Most often, the import will create new Omeka S Items. It is also possible to import Users, and other modules can add other import types.
+Requires php-ldap to be installed on the host server.
 
-## Preparing your CSV file
+## Installation
 
-CSV files for import must be encoded in UTF-8.
+Firstly, make sure that there is an existing user with an email address that can be authenticated via LDAP with 'Global Administrator' privileges. Once LDAP is enabled you will not be able to log in with existing accounts. 
 
-### Items import
+Copy the plugin source code into `$OMEKA_ROOT/modules`. If you installed via `git clone`, run 'composer install' to install dependencies.
 
-Items import will take data from each row of your CSV file and create a new Item from that data.
+In `$OMEKA_ROOT/modules/LDAP/config`copy `ldap-config.ini.example` to `ldap-config.ini` and add the settings for the ldap server you wish to authenticate against.
 
-The Global Settings allow you to set default data for each Item imported. You can specify
+Then go to the 'modules' UI in Omeka-S and enable the LDAP module. 
 
-* Item Set(s) by their IDs
-* Owner by email address
-* Resource Template by name
-* Class by term (e.g., dctype:Text -- consult the Classes lists under Vocabularies for allowed values)
-* 
+### Gotchas
 
-#### Property mapping
+Omeka-S uses emails as the primary form of user identification, not usernames. At the moment this plugin sends the string before the '@' symbol in the submitted email address as the username to LDAP and then uses the entire submitted email address to locate the user in Omeka-S. 
 
-##### Auto-mapping
+## Recovery
 
-Column headers that conform to property values as seen in the Properties list under Vocabularies will be auto-mapped. For example, a CSV file with a column header `dcterms:title` will be automapped to the Dublin Core Title property when setting the mappings. 
+If something goes wrong deleting `$OMEKA_ROOT/modules/LDAP` or renaming it temporarily to `LDAP2` will disable the plugin and allow you to log in using the default Omeka-S login system.
 
-#### Media mapping
-
-Media for Items can be mapped to data in the columns. The options conform to the regular media options when adding an Item, with the exception that `Upload` is not an option for CSV files. 
-
-
-#### Item Data mapping
-
-Data in the CSV file can be mapped to override / augment the Gobal Settings described above. Clicking on the `Item Data` button will open mapping options that will override the Global Settings.
-
-### Users import
-
-Importing Users from a CSV file must specify the following
-
-* Email address
-* Role
-* 
-
-Optionally, a Display Name should be specified. For simplicity, the email address can also be mapped to the Display Name, though this is not recommended. New users will not be active until they confirm their registration via an email that will be sent to them.
-
+## Future plans
+- Allow both LDAP authenticated and locally authenticated users to work at the same time
+- Customisable relationship between email address and LDAP username

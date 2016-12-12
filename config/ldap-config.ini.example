@@ -1,7 +1,5 @@
 [production]
 
-ldap.log_path =
-
 ; Typical options for OpenLDAP
 ldap.server1.host = 
 ldap.server1.port = 
