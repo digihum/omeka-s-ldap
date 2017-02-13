@@ -11,5 +11,11 @@ return [
         'factories' => [
             'Omeka\AuthenticationService' => 'LDAP\Service\AuthenticationServiceFactory'
         ]
-    ]
+    ],
+
+    'view_manager' => [
+        'template_map' => [
+            'omeka/login/login' => __DIR__ . '/../view-shared/omeka/login/login.phtml',
+        ],
+    ],
 ];

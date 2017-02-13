@@ -1,2 +1,10 @@
+# ide
+.vscode
+
+# dependencies
 vendor
-config/ldap-config.ini
+node_modules
+
+# local config
+config/ldap-config.ini*
+!config/ldap-config.ini.example
