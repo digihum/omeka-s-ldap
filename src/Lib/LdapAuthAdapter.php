@@ -23,7 +23,7 @@ class LdapAuthAdapter extends AuthAdapter
 		$result = parent::authenticate();
 		if ($result->isValid()) 
 		{
-			return new AuthResult($result->getCode(), $originalIdentity, $result->getMessages());
+			return $result;
 		}
 		error_log($result->getIdentity(), False);
 		return $result;
