@@ -6,17 +6,15 @@ Requires php-ldap to be installed on the host server.
 
 ## Installation
 
-Firstly, make sure that there is an existing user with an email address that can be authenticated via LDAP with 'Global Administrator' privileges. Once LDAP is enabled you will not be able to log in with existing accounts. 
-
 Copy the plugin source code into `$OMEKA_ROOT/modules`. If you installed via `git clone`, run 'composer install' to install dependencies.
 
-In `$OMEKA_ROOT/modules/LDAP/config`copy `ldap-config.ini.example` to `ldap-config.ini` and add the settings for the ldap server you wish to authenticate against.
+In `$OMEKA_ROOT/modules/LDAP/config` copy `ldap-config.ini.example` to `ldap-config.ini` and add the settings for the ldap server you wish to authenticate against.
 
 Then go to the 'modules' UI in Omeka-S and enable the LDAP module. 
 
-### Gotchas
+*WITHOUT LOGGING OUT* go to the user management section (`/admin/user`) and edit each user you want to be able to log in via LDAP. There is a new 'LDAP Username' field that should be set to exactly the username to be authenticated.
 
-Omeka-S uses emails as the primary form of user identification, not usernames. At the moment this plugin sends the string before the '@' symbol in the submitted email address as the username to LDAP and then uses the entire submitted email address to locate the user in Omeka-S. 
+The login page has been replaced with one that uses LDAP. Enter your LDAP username and password and click 'Login'. 
 
 ## Recovery
 
@@ -24,4 +22,3 @@ If something goes wrong deleting `$OMEKA_ROOT/modules/LDAP` or renaming it tempo
 
 ## Future plans
 - Allow both LDAP authenticated and locally authenticated users to work at the same time
-- Customisable relationship between email address and LDAP username
