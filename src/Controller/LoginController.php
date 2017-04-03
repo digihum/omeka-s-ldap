@@ -60,7 +60,7 @@ class LoginController extends AbstractActionController
                     }
                     return $this->redirect()->toRoute('admin');
                 } else {
-                    $this->messenger()->addError('Email or password is invalid'); // @translate
+                    $this->messenger()->addError('Username or password is invalid'); // @translate
                 }
             } else {
                 $this->messenger()->addFormErrors($form);
