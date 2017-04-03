@@ -23,7 +23,7 @@ class LdapAuthAdapter extends AuthAdapter
             $originalIdentity = $this->getIdentity();
             $this->setIdentity(strtok($originalIdentity, '@'));
             //var_dump($this->getUsername()); die;
-	    $result = parent::authenticate();
+	    	$result = parent::authenticate();
             if ($result->isValid()) 
             {
                 return new AuthResult($result->getCode(), $originalIdentity, $result->getMessages());

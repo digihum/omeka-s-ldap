@@ -13,17 +13,15 @@ return [
         ]
     ],
 
-    // 'view_manager' => [
-    //     'template_map' => [
-    //         'omeka/login/login' => __DIR__ . '/../view-shared/omeka/login/login.phtml',
-    //     ],
-    // ],
-    // 'entity_manager' => [
-    //     'mapping_classes_paths' => [
-    //         OMEKA_PATH . '/modules/LDAP/src/Entity',
-    //     ],
-    //     'resource_discriminator_map' => [
-    //         'Omeka\Entity\User' => 'LDAP\Entity\User',
-    //     ]
-    // ],
+    'controllers' => [
+        'factories' => [
+            'Omeka\Controller\Login' => 'LDAP\Service\Controller\LoginControllerFactory'
+        ]
+    ],
+
+    'view_manager' => [
+        'template_path_stack' => [
+            OMEKA_PATH . '/modules/LDAP/view',
+        ],
+    ]
 ];

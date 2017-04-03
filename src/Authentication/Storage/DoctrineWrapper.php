@@ -59,7 +59,8 @@ class DoctrineWrapper implements StorageInterface
         $identity = $this->storage->read();
         if ($identity) {
             try {
-                return $this->repository->find($identity);
+                $result = $this->repository->find($identity); 
+                return $result;
             } catch (DBALException $e) {
                 // The user table does not exist.
                 return null;
@@ -73,7 +74,7 @@ class DoctrineWrapper implements StorageInterface
      */
     public function write($identity)
     {
-        $omekaUser = $this->repository->findOneBy([ 'email' => $identity]);
+        $omekaUser = $this->repository->findOneBy([ 'email' => $identity ]);
         $this->storage->write($omekaUser->getId());
     }
 
