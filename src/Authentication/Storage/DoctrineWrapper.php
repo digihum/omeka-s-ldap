@@ -3,6 +3,7 @@ namespace LDAP\Authentication\Storage;
 
 use Doctrine\DBAL\DBALException;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Zend\Authentication\Storage\StorageInterface;
 
 /**
@@ -24,16 +25,21 @@ class DoctrineWrapper implements StorageInterface
     protected $repository;
 
     /**
+    * @var TrueEntityRepository
+    */
+    protected $true_repository;
+
+    /**
      * Create the wrapper around the given storage method, looking up users
      * from the given repository.
      *
      * @param StorageInterface $storage "Base" storage class
      * @param EntityRepository $repository Repository storing Users
      */
-    public function __construct(StorageInterface $storage, EntityRepository $repository)
+    public function __construct(StorageInterface $storage, EntityRepository $repository, EntityRepository $true_repository)
     {
         $this->setStorage($storage);
-        $this->setRepository($repository);
+        $this->setRepositories($repository, $true_repository);
     }
 
     /**
@@ -59,7 +65,7 @@ class DoctrineWrapper implements StorageInterface
         $identity = $this->storage->read();
         if ($identity) {
             try {
-                $result = $this->repository->find($identity); 
+                $result = $this->true_repository->find($identity); 
                 return $result;
             } catch (DBALException $e) {
                 // The user table does not exist.
@@ -74,7 +80,8 @@ class DoctrineWrapper implements StorageInterface
      */
     public function write($identity)
     {
-        $omekaUser = $this->repository->findOneBy([ 'email' => $identity ]);
+        $omekaUserPointer = $this->repository->findOneBy([ 'username' => $identity ]);
+        $omekaUser = $this->true_repository->findOneBy([ 'id' => $omekaUserPointer->getId() ]);
         $this->storage->write($omekaUser->getId());
     }
 
@@ -111,9 +118,10 @@ class DoctrineWrapper implements StorageInterface
      *
      * @param EntityRepository $repository
      */
-    public function setRepository(EntityRepository $repository)
+    public function setRepositories(EntityRepository $repository, EntityRepository $true_repository)
     {
         $this->repository = $repository;
+        $this->true_repository = $true_repository;
     }
 
     /**

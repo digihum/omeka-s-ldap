@@ -20,16 +20,13 @@ class LdapAuthAdapter extends AuthAdapter
 	 */
 	public function authenticate()
 	{
-            $originalIdentity = $this->getIdentity();
-            $this->setIdentity(strtok($originalIdentity, '@'));
-            //var_dump($this->getUsername()); die;
-	    	$result = parent::authenticate();
-            if ($result->isValid()) 
-            {
-                return new AuthResult($result->getCode(), $originalIdentity, $result->getMessages());
-            }
-            error_log(print_r($result->getIdentity(), False));
-            return $result;
+		$result = parent::authenticate();
+		if ($result->isValid()) 
+		{
+			return new AuthResult($result->getCode(), $originalIdentity, $result->getMessages());
+		}
+		error_log($result->getIdentity(), False);
+		return $result;
 	}
 	/**
 	 * A hook that handles when a user is not found in the omeka database.

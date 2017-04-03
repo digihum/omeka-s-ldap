@@ -2,11 +2,28 @@
 
 namespace LDAP\Entity;
 
-use Omeka\Entity\User as OmekaUser;
-
-class User extends OmekaUser
+/**
+ * @Entity
+ * @Table(name="module_ldap_users")
+ */
+class User
 {
+
+    /**
+     * @Id
+     * @Column(type="integer")
+     */
+    protected $id;
+    
+    /**
+     * @Column(type="string", length=190, unique=true)
+     */
     protected $username;
+
+    public function getId()
+    {
+        return $this->id;
+    }
 
     public function setUsername($username)
     {

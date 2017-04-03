@@ -1,0 +1,21 @@
+{
+  "name": "omeka-ldap",
+  "version": "0.3.0",
+  "description": "This plugin allows users to be authenticated against an external LDAP authority.",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@actechlab.warwick.ac.uk:digital-humanities/omeka-s-module-ldap.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "ldapjs": "^1.0.1"
+  }
+}

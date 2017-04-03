@@ -40,15 +40,16 @@ class AuthenticationServiceFactory implements FactoryInterface
             $storage = new NonPersistent;
             $adapter = new Callback(function () { return null; });
         } else {
-            $userRepository = $entityManager->getRepository('Omeka\Entity\User');
+            $userRepository = $entityManager->getRepository('LDAP\Entity\User');
+            $trueRepository = $entityManager->getRepository('Omeka\Entity\User');
             if ($status->isApiRequest()) {
                 // Authenticate using key for API requests.
                 $keyRepository = $entityManager->getRepository('Omeka\Entity\ApiKey');
-                $storage = new DoctrineWrapper(new NonPersistent, $userRepository);
+                $storage = new DoctrineWrapper(new NonPersistent, $userRepository, $trueRepository);
                 $adapter = new KeyAdapter($keyRepository, $entityManager);
             } else {
                 // Authenticate using ldap for all other requests
-                $storage = new DoctrineWrapper(new Session, $userRepository);
+                $storage = new DoctrineWrapper(new Session, $userRepository, $trueRepository);
                 //$adapter = new PasswordAdapter($userRepository);
                 
                 $configReader = new ConfigReader();
