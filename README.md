@@ -1,4 +1,8 @@
-# Omeka-S LDAP Module
+# Omeka-S LDAP Module 
+
+## ** This module is currently outdated and not maintained **
+
+This module was last updated for Omeka-S beta2. Multiple issues have been raised regarding this module failing, and there are no current plans to address them.
 
 This plugin allows users to be authenticated against an external LDAP authority. 
 
