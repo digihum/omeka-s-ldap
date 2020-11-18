@@ -2,7 +2,9 @@
 
 ## ** This module is currently outdated and not maintained **
 
-This module was last updated for Omeka-S beta2. Multiple issues have been raised regarding this module failing, and there are no current plans to address them.
+This module was last updated for Omeka-S beta2. Multiple issues have been raised regarding this module failing, and there are no current plans to address them. 
+
+Biblibre's LDAP module achieves the same objective and works for Omeka-S ^2.0.0 https://github.com/biblibre/omeka-s-module-Ldap.
 
 This plugin allows users to be authenticated against an external LDAP authority. 
 
